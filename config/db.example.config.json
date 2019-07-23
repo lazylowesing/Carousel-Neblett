@@ -1,0 +1,7 @@
+{
+  "host": "insertHost",
+  "user": "insertUser",
+  "database": "insertDatabase",
+  "password": "insertPassword",
+  "port": "insertPort"
+}

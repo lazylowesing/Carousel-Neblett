@@ -1,0 +1,136 @@
+@font-face {
+  font-family: loweScriptIcons;
+  src: url(http://fec-lowes-carousel.us-east-2.elasticbeanstalk.com/fonts/lowes-icons.woff);
+}
+
+.slick-prev {
+  left: 0px;
+}
+
+.slick-next {
+  right: 0px;
+}
+
+.slick-next,
+.slick-prev {
+  font-size: 1em;
+  font-style: normal;
+  font-weight: 400;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+}
+
+.slick-next::before,
+.slick-prev::before {
+  font-family: loweScriptIcons;
+  font-size: 1em;
+  font-style: normal;
+  font-weight: 400;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+}
+
+.slick-slider .slick-next, .slick-slider .slick-prev {
+  max-height: 80px;
+  width: 35px;
+  padding: 0 10px;
+  position: absolute;
+  display: block;
+  height: 100%;
+  line-height: 0;
+  cursor: pointer;
+  color: transparent;
+  top: 30%;
+  border: none;
+  outline: 0;
+  background: #0471AF;
+  opacity: .9;
+  z-index: 1;
+  transition: background 0.2s;
+}
+
+.slick-slider .slick-next:hover, .slick-slider .slick-prev:hover {
+  background: rgb(4, 92, 175);
+  opacity: .95;
+}
+
+.slick-slider .slick-next i {
+  color: #FFF;
+  font-size: 15px;
+  font-size: 1.0714285714285714rem;
+}
+
+.slick-next:before {
+  content: "\EDBB";
+}
+
+.slick-prev:before {
+  content: "\EDC3";
+}
+
+.slick-dots li button:before {
+  font-family: loweScriptIcons;
+  font-weight: 400;
+  font-size: 10px;
+  display: inline-block;
+  vertical-align: middle;
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: "\42";
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
+  text-align: center;
+  color: rgba(4, 112, 175, 0.459);
+  opacity: .4;
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (max-width: 768px) {
+  .slick-dots li button:before {
+    font-size: 8px;
+  }
+  .slick-dots li {
+    margin: 0 3px;
+  }
+}
+
+@media (max-width: 576px) {
+  .slick-dots li button:before {
+    font-size: 6px;
+  }
+  .slick-dots li {
+    margin: 0px;
+  }
+}
+
+.slick-dots li.slick-active button:before {
+  color: rgb(4, 92, 175);
+}
+
+.slick-dots li button:hover {
+  animation-name: expand;
+  animation-duration: 0.3s;
+  color: #0471AF;
+}
+
+.slick-disabled {
+  display: none !important;
+}
+
+@keyframes expand {
+  30% {
+    transform: scale(1.21)
+  }
+  70% {
+    transform: scale(1.15)
+  }
+  100% {
+    transform: scale(1.05)
+  }
+}
