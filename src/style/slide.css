@@ -1,0 +1,8 @@
+.slick-track {
+  margin: 2px 4px;
+}
+
+.slide > div > div,
+.slick-track > div > div {
+  object-fit: contain;
+}

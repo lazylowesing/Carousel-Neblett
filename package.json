@@ -1,0 +1,52 @@
+{
+  "name": "lowes-carousel",
+  "version": "",
+  "description": "",
+  "author": "Mitchell Dill",
+  "license": "",
+  "private": true,
+  "engines": {
+    "node": ">=6.13.0"
+  },
+  "scripts": {
+    "start": "node ./server/index.js",
+    "server-dev": "nodemon server/index.js",
+    "build": "webpack --mode production --watch",
+    "dev-build": "webpack -d --watch"
+  },
+  "dependencies": {
+    "axios": "^0.19.0",
+    "bootstrap": "^4.3.1",
+    "classnames": "^2.2.6",
+    "cookie-parser": "^1.4.4",
+    "cors": "^2.8.5",
+    "enquire.js": "^2.1.6",
+    "express": "^4.17.1",
+    "json2mq": "^0.2.0",
+    "lodash.debounce": "^4.0.8",
+    "pg": "^7.11.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-multi-carousel": "^1.4.6",
+    "react-slick": "^0.24.0",
+    "slick-carousel": "^1.8.1",
+    "string-convert": "^0.2.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.6",
+    "css-loader": "^3.0.0",
+    "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
+    "file-loader": "^4.0.0",
+    "html-webpack-plugin": "^3.2.0",
+    "less": "^3.9.0",
+    "less-loader": "^5.0.0",
+    "nodemon": "^1.19.1",
+    "resize-observer-polyfill": "^1.5.1",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.35.2",
+    "webpack-cli": "^3.3.5"
+  }
+}
