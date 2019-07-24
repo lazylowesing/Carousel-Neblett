@@ -4,6 +4,7 @@ const cors = require("cors");
 const db = require("../database/index.js");
 const middleware = require("./middleware.js");
 const helpers = require("./helpers.js");
+const DATAGEN = require("../data/dataGenerator.js")
 
 const PORT = 3000;
 
@@ -15,6 +16,11 @@ app.use(cookieParser());
 app.use(cors(middleware.corsOptions));
 
 app.use(express.static("dist"));
+
+app.get("/test", (req, res) => {
+  const data = DATAGEN.generate();
+  res.send(data);
+});
 
 app.post("/users", middleware.itemLookup, async (req, res) => {
   try {
@@ -55,5 +61,5 @@ app.get("/carousels", middleware.itemLookup, async (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`what up, i'm on ${PORT}, baby`);
+  console.log(`whats up, i'm on ${PORT}, baby`);
 });
