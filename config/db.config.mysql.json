@@ -1,6 +1,14 @@
 {
-  "host": "localhost",
-  "user": "root",
-  "database": "carousel",
-  "password": "password"
+  "client": "mysql",
+  "connection": {
+    "host": "localhost",
+    "user": "root",
+    "database": "carousel",
+    "password": "password"
+  },
+  "pool": {
+    "min": 2,
+    "max": 50,
+    "propagateCreateError": false
+  }
 }

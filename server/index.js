@@ -1,83 +1,98 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
-const db = require("../database/index.js");
+// const db = require("../database/index.js");
 const DB_MYSQL = require("../database/sql-index.js")
 const middleware = require("./middleware.js");
 const helpers = require("./helpers.js");
 const faker = require('faker');
 
-const generate = () => {
-    const data = {};
-    for(i=1; i <= 100000; i++){
-        let alt = faker.commerce.productName(); //same as name
-        let src = faker.image.avatar();  //also name of obj as string ex: "0"{"alt": "name of product"}
-        let category = faker.commerce.product();
-        let subCategory = faker.commerce.department();
-
-        data[i] = {
-          "alt": alt, 
-          "src": src, 
-          "id": i, 
-          "category": category, 
-          "subCategory": subCategory, 
-          "name": alt
-        }
-    }
-    return data;
-}
-
 const PORT = 3000;
 
 const app = express();
 
-app.use(express.json());
-app.use(express.urlencoded());
+app.use(express.urlencoded({extended: true})); 
+app.use(express.json()); 
 app.use(cookieParser());
 app.use(cors(middleware.corsOptions));
+
 
 app.use(express.static("dist"));
 
 app.get("/seedDaDB", (req, res) => {
-  
+  let count = 0;
   let data = {};
-  let count = 0; 
-  let done = false;
+  let x = 1;
+  let y = 11467;
+  let interval = 11467;
 
-  let start = 1;
-  let end = 1000;
-
-  const helper = (start, end) => {
-
-    for(productID=start; productID <= end; productID++){
-      let alt = faker.commerce.productName(); //same as name
-      let src = faker.image.avatar();  //also name of obj as string ex: "0"{"alt": "name of product"}
-      let category = faker.commerce.product();
-      let subCategory = faker.commerce.department();
-      data[productID] = {"alt": alt, "src": src, "id": productID, "category": category, "subCategory": subCategory, "name": alt}
-    }
-    count ++;  //will get first 1000 items
-    if(count === 3){
-      done = true;
-    }
-    while(!done){
-      
-      //uncomment for query
-      DB_MYSQL.insertData = (data)
-      data = {};
-      helper(start += 1000, end += 1000);
-    }
+  function resolveAfter2Seconds(start, end) {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        for(i=start; i<=end; i++){
+          let alt = faker.commerce.productName(); //same as name
+          let src = faker.image.avatar();  //also name of obj as string ex: "0"{"alt": "name of product"}
+          let category = faker.commerce.product();
+          let subCategory = faker.commerce.department();
+          data[i] = {"alt": alt, "src": src, "id": i, "category": category, "subCategory": subCategory, "name": alt}
+        }
+        resolve(data);
+      }, 2000);
+    });
   }
-
-  if(!done){ //runs once
-    helper(start, end);
+  async function asyncCall(start, end) {
+    console.log(count);
+    var result = await resolveAfter2Seconds(start, end);
+    result;
+  //   console.log(result);
+    const Push = await queryTest(data);
+    Push;
+    data = {};
+    count ++;
+  //   console.log(count);
+    if(count !== 2){
+      beg = x + (count * interval);
+      end = beg + interval - 1;
+      console.log(beg, end);
+      asyncCall(beg, end);
+    }
+    // expected output: 'resolved'
   }
-  const items = data;
-  res.send(items);
-
+  async function queryTest(data){ //will have DB in it 
+      // console.log(data, "should be coming in chunks"); 
+    DB_MYSQL.insertData(data, (err, res) => {
+      if (err) {console.log('INSERTION ERROR FROM SERVER',err)}
+    })  
+  }
+  if(count === 0){
+    asyncCall(x, y);
+  }
+  res.send("done");
 })
 
 // DB_MYSQL.schema();
+// DB_MYSQL.usersSchema();
+// DB_MYSQL.userHistorySchema();
+
+app.get("/images/id/:id", (req, res) => { 
+  DB_MYSQL.selectOneById(req.params.id)
+  .then( result => {
+    console.log('knex query result: ', result);
+   res.send(result);
+  })
+  .catch( error => {
+    console.log('knex error: ', error);
+    res.end();
+  });
+});
+
+app.get("/images/name/:name", (req, res) => {
+  DB_MYSQL.selectOneByName(req.params.name, (err, results) => {
+    console.log(req.params.name)
+    if (err) {console.log(`server can't grab the name using DB...\n${err}`); res.end()}
+    else {res.send(results)};
+  });
+});
 
 app.post("/users", middleware.itemLookup, async (req, res) => {
   try {
@@ -118,5 +133,5 @@ app.get("/carousels", middleware.itemLookup, async (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`whats up, i'm on ${PORT}, baby`);
+  console.log(`whats up, server's on ${PORT}, baby`);
 });
